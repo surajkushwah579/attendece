@@ -1,5 +1,5 @@
 # Task 1: User Authentication
-user_data = {'user1': 'password1',}
+user_data = {'suraj': '1234',}
 # user login
 def login():
     username = input("Username: ")
