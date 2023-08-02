@@ -1,26 +1,21 @@
 # Task 1: User Authentication
 user_data = {'user1': 'password1',}
-
 # user login
 def login():
     username = input("Username: ")
     password = input("Password: ")
-
     if username in user_data and user_data[username] == password:
         print("Login successful.")
         return True
     else:
         print("Invalid username or password.")
         return False
-
 # user register
 def register():
     username = input("username: ")
-
     if username in user_data:
         print("Username already exists. Please choose a different username.")
         return
-
     password = input(" password: ")
     user_data[username] = password
     print("Registration successful. You can now login.")
@@ -34,21 +29,14 @@ def add_student_record():
     if student_id in student_data:
         print("Student ID already exists. Use update function to modify the record.")
         return
-
     name = input("Enter student name: ")
     age = int(input("Enter student age: "))
     email = input("Enter student email: ")
-
-    student_data[student_id] = {
-        'name': name,
-        'age': age,
-        'email': email
-    }
+    student_data[student_id] = { 'name': name, 'age': age,'email': email}
     print("Student record added successfully.")
 #student record view
 def view_student_record():
     student_id = int(input("Enter student ID: "))
-
     if student_id in student_data:
         student_info = student_data[student_id]
         print(f"Student ID: {student_id}")
@@ -76,26 +64,21 @@ def update_student_record():
 
 def delete_student_record():
     student_id = int(input("Enter student ID: "))
-
     if student_id in student_data:
         del student_data[student_id]
         print("Student record deleted successfully.")
     else:
         print("Student not found.")
-
 # Task 3: Marking Attendance
 attendance_records = {}
-
 def display_students_for_attendance():
     print("Available Students for Attendance:")
     for student_id, student_info in student_data.items():
         print(f"{student_id}: {student_info['name']}")
-
 def mark_attendance():
     date = input("Enter the date (YYYY-MM-DD): ")
     display_students_for_attendance()
-
-    while True:
+     while True:
         student_id = int(input("Enter student ID to mark attendance (-1 to stop): "))
         if student_id == -1:
             break
@@ -106,9 +89,7 @@ def mark_attendance():
             print(f"Attendance marked for {student_data[student_id]['name']} on {date}.")
         else:
             print("Invalid student ID. Please try again.")
-
 # Task 4: Viewing Attendance Records
-
 def view_attendance_records():
     date = input("Enter the date to view attendance records (YYYY-MM-DD): ")
     if date in attendance_records:
@@ -117,21 +98,16 @@ def view_attendance_records():
             print(f"Student ID: {student_id}, Name: {student_data[student_id]['name']}")
     else:
         print("No attendance records found for the given date.")
-
 # Task 5: Generating Reports
-
 def generate_monthly_report(year, month):
     start_date = f"{year}-{month:02d}-01"
     end_date = f"{year}-{month:02d}-31"
-
     total_days = 0
     total_present = 0
-
     for date in attendance_records:
         if start_date <= date <= end_date:
             total_days += 1
             total_present += len(attendance_records[date])
-
     print(f"Monthly Attendance Report ({year}-{month:02d}):")
     print(f"Total Days: {total_days}")
     print(f"Total Present: {total_present}")
@@ -139,7 +115,6 @@ def generate_monthly_report(year, month):
 
 def generate_weekly_report(year, week_number):
     from datetime import datetime, timedelta
-
     week_start = datetime.strptime(f"{year}-W{week_number:02d}-1", "%Y-W%W-%w")
     week_end = week_start + timedelta(days=6)
 
@@ -156,7 +131,6 @@ def generate_weekly_report(year, week_number):
     print(f"Total Days: {total_days}")
     print(f"Total Present: {total_present}")
     print(f"Average Attendance: {total_present / total_days:.2f}")
-
 def generate_daily_report(date):
     if date in attendance_records:
         total_present = len(attendance_records[date])
@@ -164,13 +138,11 @@ def generate_daily_report(date):
         print(f"Total Present: {total_present}")
     else:
         print(f"No attendance records found for {date}.")
-
 def export_to_csv(file_name):
     with open(file_name, 'w') as csvfile:
         csvfile.write("Date,Present Students\n")
         for date, students in attendance_records.items():
             csvfile.write(f"{date},{', '.join(str(student_id) for student_id in students)}\n")
-
 # Main program loop
 while True:
     print("\nStudent Management System")
